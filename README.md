@@ -9,10 +9,10 @@ This is possible by doing the following:
 
 As a result, running [rook-ceph](https://github.com/rook/rook) running in KinD is possible on PVCs.
 
-## !! ⚠️ Warning ⚠️ !!
+### !! ⚠️ Warning ⚠️ !!
 USE A VIRTUAL MACHINE WHEN DOING THIS ON LINUX SYSTEMS!
 
-Mistakes with deploying rook-ceph on Linux systems can result in data loss. Simply using a VMs helps you avoid breaking your desktop system when doing storage experiments like this.
+Mistakes with deploying rook-ceph on Linux systems can result in data loss. Simply using a VM helps you avoid breaking your desktop system when doing storage experiments like this.
 
 ## Requirements
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) for Mac/Windows
