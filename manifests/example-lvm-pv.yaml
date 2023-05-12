@@ -1,0 +1,29 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nginx-storage
+spec:
+  storageClassName: lvm-myvolgrp
+  accessModes:
+  - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    volumeMounts:
+    - mountPath: "/var/www/html"
+      name: nginx-volume
+  volumes:
+  - name: nginx-volume
+    persistentVolumeClaim:
+      claimName: nginx-storage

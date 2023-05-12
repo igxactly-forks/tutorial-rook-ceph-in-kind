@@ -1,0 +1,69 @@
+# This example is based on:
+# https://github.com/rook/rook/blob/master/deploy/examples/cluster-on-pvc.yaml
+################################################################################
+---
+apiVersion: ceph.rook.io/v1
+kind: CephCluster
+metadata:
+  name: rook-ceph
+  namespace: rook-ceph
+  labels:
+    app: rook-ceph-cluster
+spec:
+  dataDirHostPath: /var/lib/rook
+  mon:
+    count: 1
+    allowMultiplePerNode: false
+    volumeClaimTemplate:
+      spec:
+        storageClassName: lvm-myvolgrp
+        resources:
+          requests:
+            storage: 5Gi
+  cephVersion:
+    image: quay.io/ceph/ceph:v17.2.6
+    allowUnsupported: false
+  skipUpgradeChecks: false
+  continueUpgradeAfterChecksEvenIfNotHealthy: false
+  mgr:
+    count: 1
+    modules:
+    - name: pg_autoscaler
+      enabled: true
+  dashboard:
+    enabled: false
+    ssl: false
+  crashCollector:
+    disable: false
+  logCollector:
+    enabled: false
+    periodicity: daily
+    maxLogSize: 500M
+  storage:
+    storageClassDeviceSets:
+    - name: genesis
+      count: 1
+      portable: false
+      tuneDeviceClass: true
+      tuneFastDeviceClass: false
+      encrypted: false
+      volumeClaimTemplates:
+      - metadata:
+          name: data
+        spec:
+          resources:
+            requests:
+              storage: 10Gi
+          storageClassName: lvm-myvolgrp
+          volumeMode: Block
+          accessModes:
+          - ReadWriteOnce
+    onlyApplyOSDPlacement: false
+  priorityClassNames:
+    mon: system-node-critical
+    osd: system-node-critical
+    mgr: system-cluster-critical
+  disruptionManagement:
+    managePodBudgets: true
+    osdMaintenanceTimeout: 30
+    pgHealthCheckTimeout: 0
