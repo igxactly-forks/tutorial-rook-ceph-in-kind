@@ -1,3 +1,8 @@
+### ⚠️ Warning ⚠️
+USE A VIRTUAL MACHINE WHEN DOING THIS ON LINUX SYSTEMS!
+
+Mistakes with deploying rook-ceph on Linux systems can result in data loss. Simply using a VM helps you avoid breaking your desktop system when doing storage experiments like this.
+
 # Overview
 Steps in this tutoral demonstrates a method to enable block storage in a [KinD](https://kind.sigs.k8s.io/) cluster.
 
@@ -8,11 +13,6 @@ This is possible by doing the following:
 - using [OpenEBS/lvm-localpv](https://github.com/openebs/lvm-localpv) to provision filesystem and block storage from the volume group
 
 As a result, running [rook-ceph](https://github.com/rook/rook) running in KinD is possible on PVCs.
-
-### ⚠️ Warning ⚠️
-USE A VIRTUAL MACHINE WHEN DOING THIS ON LINUX SYSTEMS!
-
-Mistakes with deploying rook-ceph on Linux systems can result in data loss. Simply using a VM helps you avoid breaking your desktop system when doing storage experiments like this.
 
 ## Requirements
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) for Mac/Windows
